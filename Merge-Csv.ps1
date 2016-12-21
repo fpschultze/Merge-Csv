@@ -2,7 +2,7 @@
   .SYNOPSIS
   Merge CSV files
 
-  .SYNOPSIS
+  .DESCRIPTION
   Merges multiple CSV files within a given directory into one CSV file.
 
   .EXAMPLE
