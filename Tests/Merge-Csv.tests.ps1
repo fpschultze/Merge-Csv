@@ -14,7 +14,7 @@ Id{0}Date{0}Computername
 
 Describe 'Merge-Csv' {
 
-  $TestPath = TESTDRIVE:\
+  $TestPath = 'TESTDRIVE:\'
   $TestFile1 = Join-Path -Path $TestPath -ChildPath 'foo.csv'
   $TestFile2 = Join-Path -Path $TestPath -ChildPath 'bar.csv'
   $TestResultFile  = Join-Path -Path $TestPath -ChildPath 'foobar.csv'
