@@ -9,14 +9,15 @@ Id{0}Date{0}Computername
 '@ -f $Delimiter, [guid]::NewGuid().Guid, (Get-Date), $env:COMPUTERNAME >$Path
 }
 
-$TestPath = Join-Path -Path $env:TEMP -ChildPath ([guid]::NewGuid().Guid)
-$null = New-Item -Path $TestPath -ItemType Directory
-
-$TestFile1 = Join-Path -Path $TestPath -ChildPath 'foo.csv'
-$TestFile2 = Join-Path -Path $TestPath -ChildPath 'bar.csv'
-$TestResultFile  = Join-Path -Path $TestPath -ChildPath 'foobar.csv'
+#$TestPath = Join-Path -Path $env:TEMP -ChildPath ([guid]::NewGuid().Guid)
+#$null = New-Item -Path $TestPath -ItemType Directory
 
 Describe 'Merge-Csv' {
+
+  $TestPath = TESTDRIVE:\
+  $TestFile1 = Join-Path -Path $TestPath -ChildPath 'foo.csv'
+  $TestFile2 = Join-Path -Path $TestPath -ChildPath 'bar.csv'
+  $TestResultFile  = Join-Path -Path $TestPath -ChildPath 'foobar.csv'
 
   Context 'with comma-delimited CSV files' {
 
@@ -93,4 +94,4 @@ Describe 'Merge-Csv' {
   }
 }
 
-Remove-Item -Path $TestPath -Recurse -Force
+#Remove-Item -Path $TestPath -Recurse -Force
