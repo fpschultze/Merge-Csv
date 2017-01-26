@@ -9,24 +9,20 @@ Id{0}Date{0}Computername
 '@ -f $Delimiter, [guid]::NewGuid().Guid, (Get-Date), $env:COMPUTERNAME >$Path
 }
 
-#$TestPath = Join-Path -Path $env:TEMP -ChildPath ([guid]::NewGuid().Guid)
-#$null = New-Item -Path $TestPath -ItemType Directory
-
 Describe 'Merge-Csv' {
 
-  $TestPath = 'TESTDRIVE:\'
-  $TestFile1 = Join-Path -Path $TestPath -ChildPath 'foo.csv'
-  $TestFile2 = Join-Path -Path $TestPath -ChildPath 'bar.csv'
-  $TestResultFile  = Join-Path -Path $TestPath -ChildPath 'foobar.csv'
-
   Context 'with comma-delimited CSV files' {
+
+    $TestFile1 = Join-Path -Path TESTDRIVE: -ChildPath 'foo.csv'
+    $TestFile2 = Join-Path -Path TESTDRIVE: -ChildPath 'bar.csv'
+    $TestResultFile  = Join-Path -Path TESTDRIVE: -ChildPath 'foobar.csv'
 
     $char = ','
     New-Csv -Path $TestFile1 -Delimiter $char
     New-Csv -Path $TestFile2 -Delimiter $char
 
     It 'runs without errors' {
-      {Merge-Csv -Path $TestPath -ResultFile $TestResultFile} | Should Not Throw
+      {Merge-Csv -Path TESTDRIVE: -ResultFile $TestResultFile} | Should Not Throw
     }
     It 'the result file exists' {
       $TestResultFile | Should Exist
@@ -42,8 +38,16 @@ Describe 'Merge-Csv' {
 
   Context 'with a subset of properties' {
 
+    $TestFile1 = Join-Path -Path TESTDRIVE: -ChildPath 'foo.csv'
+    $TestFile2 = Join-Path -Path TESTDRIVE: -ChildPath 'bar.csv'
+    $TestResultFile  = Join-Path -Path TESTDRIVE: -ChildPath 'foobar.csv'
+
+    $char = ','
+    New-Csv -Path $TestFile1 -Delimiter $char
+    New-Csv -Path $TestFile2 -Delimiter $char
+
     It 'runs without errors' {
-      {Merge-Csv -Path $TestPath -ResultFile $TestResultFile -Property Id, Date} | Should Not Throw
+      {Merge-Csv -Path TESTDRIVE: -ResultFile $TestResultFile -Property Id, Date} | Should Not Throw
     }
     It 'the result file contains a subset of each csv content' {
       $TestResultFileContent = Get-Content -Path $TestResultFile | ConvertFrom-Csv
@@ -57,12 +61,16 @@ Describe 'Merge-Csv' {
 
   Context 'Running with semicolon-delimited csv files' {
 
+    $TestFile1 = Join-Path -Path TESTDRIVE: -ChildPath 'foo.csv'
+    $TestFile2 = Join-Path -Path TESTDRIVE: -ChildPath 'bar.csv'
+    $TestResultFile  = Join-Path -Path TESTDRIVE: -ChildPath 'foobar.csv'
+
     $char = ';'
     New-Csv -Path $TestFile1 -Delimiter $char
     New-Csv -Path $TestFile2 -Delimiter $char
 
     It 'runs without errors' {
-      {Merge-Csv -Path $TestPath -ResultFile $TestResultFile -Delimiter $char} | Should Not Throw
+      {Merge-Csv -Path TESTDRIVE: -ResultFile $TestResultFile -Delimiter $char} | Should Not Throw
     }
     It 'result file should exist' {
       $TestResultFile | Should Exist
@@ -78,10 +86,16 @@ Describe 'Merge-Csv' {
 
   Context 'with a subset of properties' {
 
+    $TestFile1 = Join-Path -Path TESTDRIVE: -ChildPath 'foo.csv'
+    $TestFile2 = Join-Path -Path TESTDRIVE: -ChildPath 'bar.csv'
+    $TestResultFile  = Join-Path -Path TESTDRIVE: -ChildPath 'foobar.csv'
+
     $char = ';'
+    New-Csv -Path $TestFile1 -Delimiter $char
+    New-Csv -Path $TestFile2 -Delimiter $char
 
     It 'runs without errors' {
-      {Merge-Csv -Path $TestPath -ResultFile $TestResultFile -Delimiter $char -Property Id, Date} | Should Not Throw
+      {Merge-Csv -Path TESTDRIVE: -ResultFile $TestResultFile -Delimiter $char -Property Id, Date} | Should Not Throw
     }
     It 'the result file contains a subset of each csv content' {
       $TestResultFileContent = Get-Content -Path $TestResultFile | ConvertFrom-Csv -Delimiter $char
@@ -93,5 +107,3 @@ Describe 'Merge-Csv' {
     }
   }
 }
-
-#Remove-Item -Path $TestPath -Recurse -Force
