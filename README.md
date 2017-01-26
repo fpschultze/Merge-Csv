@@ -1,4 +1,4 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/f3cl7slwdhpv573q?svg=true)](https://ci.appveyor.com/project/fpschultze/merge-csv)
+[![Build status](https://ci.appveyor.com/api/projects/status/pupknvkhkqmnxvce?svg=true)](https://ci.appveyor.com/project/fpschultze/merge-csv)
 
 # Merge-Csv PowerShell Function
 
